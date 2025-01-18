@@ -1,24 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fotos Inteligentes</title>
-  </head>
-  <body>
-    <header>
-      <h1>Smart Photos App</h1>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/upload">Upload</a></li>
-          <li><a href="/search">Search</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fotos Inteligentes</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    header {
+        background-color: #007bff;
+        color: white;
+        padding: 1rem 0;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+        margin: 0;
+    }
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    nav ul li {
+        display: inline;
+    }
+    nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+    main {
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+    footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1rem 0;
+        background-color: #007bff;
+        color: white;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Smart Photos App</h1>
+  <nav>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/upload">Cargar Imagen</a></li>
+      <li><a href="/search">Buscar</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+<footer>
+  &copy; 2025 Smart Photos App. Todos los derechos reservados.
+</footer>
+</body>
 </html>
-

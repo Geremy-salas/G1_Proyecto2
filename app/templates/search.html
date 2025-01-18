@@ -1,24 +1,23 @@
 {% extends "layout.html" %}
-
 {% block content %}
-  <h2>Búsqueda</h2>
-
-  <form method="get" action="/search">
-    <label for="q">Escribe un término</label>
-    <input type="text" name="q">
-    <button type="submit">Cargar</button>
-  </form>
-
-  {% if query %}
-    {% if results %}
-      <h3>Resultados para {{query}}</h3>
-
-      {% for image_link in results %}
-        <img src="{{image_link}}" />
-      {% endfor %}
-
-    {% else %}
-      <h3>No existieron resultados para {{query}}</h3>
-    {% endif %}
-  {% endif %}
+<h2 style="color: #007bff; text-align: center;">Búsqueda</h2>
+<form method="get" action="/search" style="text-align: center; margin-bottom: 2rem;">
+  <label for="q" style="font-size: 1.1rem; font-weight: bold;">Escribe un término</label>
+  <input type="text" name="q" style="margin: 0 1rem; padding: 0.5rem; width: 50%; border: 1px solid #ddd; border-radius: 3px;">
+  <button type="submit" style="background-color: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 3px; cursor: pointer;">Buscar</button>
+</form>
+{% if query %}
+{% if results %}
+<h3 style="color: #007bff; text-align: center;">Resultados para "{{ query }}"</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+  {% for image_link in results %}
+  <div style="text-align: center;">
+    <img src="{{ image_link }}" alt="Resultado" style="width: 200px; height: auto; border: 1px solid #ddd; border-radius: 3px;">
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<h3 style="color: red; text-align: center;">No existieron resultados para "{{ query }}"</h3>
+{% endif %}
+{% endif %}
 {% endblock %}

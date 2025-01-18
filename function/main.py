@@ -9,28 +9,36 @@ def photo_analysis_service(event, context):
     file_name = event['name']
 
     objects = _analyze_photo(bucket, file_name)
-    _store_results(bucket, file_name, objects)
+    text = _extract_text(bucket, file_name)
+    _store_results(bucket, file_name, objects, text)
 
 
 def _analyze_photo(bucket, file_name):
     client = vision.ImageAnnotatorClient()
     image = vision.Image(source=vision.ImageSource(image_uri=f'gs://{bucket}/{file_name}'))
     objects = client.object_localization(image=image).localized_object_annotations
+    return [obj.name for obj in objects]
 
-    return objects
+
+def _extract_text(bucket, file_name):
+    client = vision.ImageAnnotatorClient()
+    image = vision.Image(source=vision.ImageSource(image_uri=f'gs://{bucket}/{file_name}'))
+    response = client.text_detection(image=image)
+    texts = response.text_annotations
+    return texts[0].description if texts else ""
 
 
-def _store_results(bucket, file_name, objects):
+def _store_results(bucket, file_name, objects, text):
     db = firestore.Client()
 
-    for object_ in objects:
-
-        db.collection(u'tags').document(object_.name.lower()).set(
+    for obj in objects:
+        db.collection(u'tags').document(obj.lower()).set(
             {u'photo_urls': firestore.ArrayUnion(
-                    [u'https://storage.googleapis.com/{}/{}'.format(bucket, file_name)]
-                )
+                [f'https://storage.googleapis.com/{bucket}/{file_name}']
+            )
             },
-            merge=True)
+            merge=True
+        )
 
-        print('\n{} (confidence: {})'.format(object_.name, object_.score))
-
+    if text:
+        db.collection(u'texts').document(file_name).set({"content": text})

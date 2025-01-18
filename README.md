@@ -1,1 +1,2 @@
-# G1_Proyecto2
+# google-photos-clon
+Project for the Big Moments: Developer Edition GCP Challenge

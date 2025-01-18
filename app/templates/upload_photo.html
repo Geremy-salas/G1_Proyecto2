@@ -1,17 +1,22 @@
 {% extends "layout.html" %}
-
 {% block content %}
-  {% if successful_upload %}
-    <p>Carga exitosa</p>
-    <p>Si quieres cargar otra imagen da click <a href="/upload">aquí</a>
-  {% else %}
-    <h2>Carga una imagen</h2>
-
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-      <label for="picture">Selecciona una imagen</label>
-      <input type="file" name="picture" accept="image/*">
-      <button type="submit">Cargar</button>
-    </form>
-  {% endif %}
+<h2 style="color: #007bff; text-align: center;">Cargar Imagen</h2>
+{% if successful_upload %}
+<p style="text-align: center; color: green; font-weight: bold;">Carga exitosa</p>
+<h3 style="color: #007bff;">Resultados del Análisis:</h3>
+<ul style="font-size: 1.2rem; line-height: 1.6;">
+  <li><strong>Objetos detectados:</strong> {{ objects_detected | join(', ') }}</li>
+  <li><strong>Texto extraído:</strong> {{ extracted_text }}</li>
+  <li><strong>¿Es phishing?:</strong> {{ phishing_result }}</li>
+</ul>
+<p>Si quieres cargar otra imagen da click
+  <a href="/upload" style="color: #007bff; text-decoration: underline;">aquí</a>.
+</p>
+{% else %}
+<form method="POST" action="/upload" enctype="multipart/form-data" style="text-align: center;">
+  <label for="picture" style="font-weight: bold; font-size: 1.1rem;">Selecciona una imagen</label>
+  <input type="file" name="picture" accept="image/*" style="display: block; margin: 1rem auto;">
+  <button type="submit" style="background-color: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 3px; cursor: pointer;">Cargar</button>
+</form>
+{% endif %}
 {% endblock %}
-
