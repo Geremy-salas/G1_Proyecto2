@@ -3,4 +3,5 @@ gunicorn==22.0.0
 google-cloud-storage==2.9.0
 google-cloud-firestore==2.19.0
 google-cloud-logging==3.11.3
-
+google-cloud-vision==2.4.2
+requests==2.28.2

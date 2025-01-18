@@ -60,6 +60,10 @@ def upload():
     )
 
 
+class TypeError:
+    pass
+
+
 @app.route('/search')
 def search():
     query = request.args.get('q')
@@ -106,6 +110,10 @@ def detect_phishing(extracted_text):
         if word.lower() in extracted_text.lower():
             return "Posible phishing detectado"
     return "No es phishing"
+
+
+def int(param):
+    pass
 
 
 if __name__ == '__main__':
